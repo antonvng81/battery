@@ -120,17 +120,17 @@ public class BatteryInfoArray
             int x = SECONDS_PER_OFFSET * ARRAY_SIZE;
             int y;
 
-            y = (mTimeEnd[0] - x)%60;
-            mTimeStart[0] = (y<0)?(y+60):y;
+            y = (mTimeEnd[0] - x);
+            mTimeStart[0] = ((y<0)?(y+60):y)%60;
 
-            y = (mTimeEnd[1] - x/60)%60;
-            mTimeStart[1] = (y<0)?(y+60):y;
+            y = (mTimeEnd[1] - x/60);
+            mTimeStart[1] = ((y<0)?(y+60):y)%60;
 
-            y = (mTimeEnd[2] - x/3600)%24;
-            mTimeStart[2] = (y<0)?(y+24):y;
+            y = (mTimeEnd[2] - x/3600);
+            mTimeStart[2] = ((y<0)?(y+24):y)%24;
 
-            y = (mTimeEnd[3] - x/(24*3600))%7;
-            mTimeStart[3] = ((y<0)?(y+7):y);
+            y = (mTimeEnd[3] - x/(24*3600));
+            mTimeStart[3] = ((y<0)?(y+7):y)%7;
         }
 
         mOffset = (mOffset + 1) % ARRAY_SIZE;

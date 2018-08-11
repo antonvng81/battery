@@ -72,10 +72,10 @@ public class Page1Fragment extends Fragment {
 
         if (intent.getAction().equals(BatteryService.ACTION_GET_BATTERY_INFO)) {
 
-            if (!mCheckBox1.isChecked())
+            if ((!mCheckBox1.isChecked()) && BatteryService.isInstanceCreated())
                 mCheckBox1.setChecked(true);
-
             updateInfo();
+
         } else if (intent.getAction().equals(BatteryService.ACTION_EXIT_SERVICE)) {
             mCheckBox1.setChecked(false);
             removeInfo();
