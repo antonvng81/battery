@@ -126,11 +126,11 @@ public class BatteryInfoArray
             y = (mTimeEnd[1] - x/60)%60;
             mTimeStart[1] = (y<0)?(y+60):y;
 
-            y = (mTimeEnd[2] - x/3600)%60;
+            y = (mTimeEnd[2] - x/3600)%24;
             mTimeStart[2] = (y<0)?(y+24):y;
 
-            y = (mTimeEnd[3] - x/(24*3600))%60;
-            mTimeStart[3] = (y<0)?(y+24):y;
+            y = (mTimeEnd[3] - x/(24*3600))%7;
+            mTimeStart[3] = ((y<0)?(y+7):y);
         }
 
         mOffset = (mOffset + 1) % ARRAY_SIZE;

@@ -100,7 +100,12 @@ public class Page1Fragment extends Fragment {
         String tv5_text;
         int pb_progress;
 
+
         BatteryInfo info = BatteryService.getBatteryInfo();
+
+        if (info == null) {
+            return;
+        }
 
         if (info.getPlugged() > 0)
             tv1_text = mText[0];

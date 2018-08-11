@@ -41,22 +41,24 @@ public class Page2Fragment extends Fragment {
 
         if (intent.getAction().equals(BatteryService.ACTION_GET_BATTERY_INFO_ARRAY)) {
 
-            String[] dias_semana = {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"};
+            if (BatteryService.getBatteryInfoArray() == null) {
+                return;
+            }
+
+            String[] dias_semana = { "Sabado", "Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes"};
 
             int[] fecha_inicio = BatteryService.getBatteryInfoArray().getTimeStart();
             int[] fecha_fin = BatteryService.getBatteryInfoArray().getTimeEnd();
 
-            String str = "Batería al" +
-                    Integer.toString(BatteryService.getBatteryInfo().getLevel()) + "%";
-            mTextView1.setText(str);
+            String str = "Batería al" + Integer.toString(BatteryService.getBatteryInfo().getLevel()) + "%%";
 
-            str = "Fecha inicio:\n" + dias_semana[fecha_inicio[3]] + " "
+            str = "Fecha inicio:\n" + dias_semana[fecha_inicio[3]%7] + " "
                     + Integer.toString(fecha_inicio[2]) + ":"
                     + Integer.toString(fecha_inicio[1]) + ":"
                     + Integer.toString(fecha_inicio[0]);
             mTextView2.setText(str);
 
-            str = "Fecha fin:\n" + dias_semana[fecha_fin[3]] + " "
+            str = "Fecha fin:\n" + dias_semana[fecha_fin[3]%7] + " "
                     + Integer.toString(fecha_fin[2]) + ":"
                     + Integer.toString(fecha_fin[1]) + ":"
                     + Integer.toString(fecha_fin[0]) ;
@@ -73,6 +75,9 @@ public class Page2Fragment extends Fragment {
         } else if (intent.getAction().equals(BatteryService.ACTION_EXIT_SERVICE)) {
             mChartView1.setChartInfo(null);
             mChartView1.setVisibility(View.INVISIBLE);
+            mTextView1.setText("");
+            mTextView2.setText("");
+            mTextView3.setText("");
         }
     }
 

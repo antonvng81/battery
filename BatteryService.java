@@ -43,9 +43,17 @@ public class BatteryService extends Service {
         return mInstance != null;
     }
     public static BatteryInfoArray getBatteryInfoArray(){
+
+        if (mInstance == null)
+            return null;
+
         return mInstance.mBatteryInfoArray;
     }
     public static BatteryInfo getBatteryInfo(){
+
+        if (mInstance == null)
+            return null;
+
         return mInstance.mBatteryInfo;
     }
 
@@ -100,7 +108,7 @@ public class BatteryService extends Service {
                         registerReceiver(mBatteryReceiver, filter);
                     }
                 }
-                , 0, 1000);
+                , 0, BatteryInfoArray.SECONDS_PER_OFFSET*1);
 
         mTimerLong = new Timer();
         mTimerLong.scheduleAtFixedRate(
@@ -109,7 +117,7 @@ public class BatteryService extends Service {
                         mBatteryArrayInfoState = true;
                     }
                 }
-                , 0, BatteryInfoArray.SECONDS_PER_OFFSET*1000);
+                , 0, BatteryInfoArray.SECONDS_PER_OFFSET*10);
 
         Toast.makeText(this,"Battery service started",Toast.LENGTH_SHORT).show();
 
